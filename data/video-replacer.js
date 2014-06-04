@@ -1,14 +1,14 @@
 
 function analyzeObject(element) {
-  if (!element) {
+  if (element === null) {
     console.error("Null object to analyze");
     return {
       type: "notflash"
     };
   }
   var param = element.firstChild;
-  if (!param) {
-    console.error("No child to analyze");
+  if (param === null) {
+    console.error("No child to analyze in", element.localName);
     return {
       type: "notflash"
     };
@@ -45,7 +45,8 @@ function analyzeObject(element) {
             src: url,
             width: width,
             height: height,
-            videoid: matches[2]
+            videoid: matches[2],
+            processor: replaceYT
           };
         }
 
@@ -57,7 +58,8 @@ function analyzeObject(element) {
             src: url,
             width: width,
             height: height,
-            videoid: matches[2]
+            videoid: matches[2],
+            processor: replaceVimeo
           };
         }
       }
@@ -78,14 +80,16 @@ function replaceVimeo(container, a) {
     return ;
   }
 
-  var replacement = document.createElement("span");
+  var replacement = document.createElement("iframe");
+  replacement.setAttribute('src', 'https://player.vimeo.com/video/' + a.videoid);
+  replacement.setAttribute('width', a.width);
+  replacement.setAttribute('height', a.height);
+  replacement.setAttribute('frameborder', '0');
+//  replacement.setAttribute('webkitallowfullscreen'); // not needed
+//  replacement.setAttribute('mozallowfullscreen'); // deprecated
+  replacement.setAttribute('allowfullscreen', '');
 
-  var html = '<iframe src="//player.vimeo.com/video/' + a.videoid + '" width="' + a.width + '" height="' + a.height + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-  replacement.innerHTML = html;
-  console.log("Replacing with ", html);
-  container.parentNode.insertBefore(replacement, container);
-  container.parentNode.removeChild(container);
-
+  replaceObjectTag(container, replacement);
 }
 
 
@@ -101,35 +105,42 @@ function replaceYT(container, a) {
     return ;
   }
 
-  var replacement = document.createElement("span");
+  var replacement = document.createElement("iframe");
+  replacement.setAttribute('class', 'youtube-player');
+  replacement.setAttribute('type', 'text/html');
+  replacement.setAttribute('width', a.width);
+  replacement.setAttribute('height', a.height);
+  replacement.setAttribute('src', 'https://www.youtube.com/embed/' + a.videoid);
+  replacement.setAttribute('allowfullscreen', '');
+  replacement.setAttribute('frameborder', '0');
 
-  var html = '<iframe class="youtube-player" type="text/html" width="' + a.width + '" height="' + a.height + '" src="http://www.youtube.com/embed/' + a.videoid + '" allowfullscreen frameborder="0"></iframe>';
-  replacement.innerHTML = html;
-  console.log("Replacing with ", html);
-  container.parentNode.insertBefore(replacement, container);
-  container.parentNode.removeChild(container);
+  replaceObjectTag(container, replacement);
+}
+
+function replaceObjectTag(obj, replacement) {
+  obj.parentNode.insertBefore(replacement, obj);
+  obj.parentNode.removeChild(obj);
 }
 
 var elements = document.getElementsByTagName("object")
-console.log("Elements count", elements.length);
+
 var embeds = [];
-for (var i in elements) {
-  embeds.push(elements[i]);
+for (var i = 0; i < elements.length; i++) {
+  embeds.push(elements.item(i));
 }
 
 for (var i in embeds) {
   try {
+    console.log('processing', i);
     var analyzed = analyzeObject(embeds[i]);
 
-    if (analyzed.type == "youtube") {
-      replaceYT(embeds[i], analyzed);
+    if (typeof analyzed.processor === 'function') {
+      analyzed.processor(embeds[i], analyzed);
+    } else {
+      console.log("Found unprocessable object", embeds[i].localName, "of type", analyzed.type);
     }
-    else if (analyzed.type == "vimeo") {
-      replaceVimeo(embeds[i], analyzed);
-    }
-    console.log("Found object", embeds[i].localName, "of type", analyzed.type);
   }
-  catch(e) {
+  catch (e) {
     console.error("Exception:", e.message, e.stack);
   }
 }
