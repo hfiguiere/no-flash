@@ -4,7 +4,6 @@ Because there are two things I hate the most on the "web":
 * Flash
 * EME
 
-
 ## What it does
 
 Will replace know Flash embed with HTML5 equivalent.
@@ -22,7 +21,7 @@ Visit https://addons.mozilla.org/en-US/firefox/addon/no-flash/
 
 Install the Add-on SDK https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Installation
 
-cfx xpi
+    cfx xpi
 
 Then drop the no-flash.xpi file into you browser.
 
