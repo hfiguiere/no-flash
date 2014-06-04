@@ -1,9 +1,9 @@
 {
   "name": "no-flash",
-  "title": "no-flash",
+  "title": "No Flash",
   "id": "jid1-cplLTTY501TB2Q",
-  "description": "a basic add-on",
-  "author": "",
+  "description": "An addon that replace Flash video players by HTML5.",
+  "author": "Hubert Figuière <hub@figuiere.net>",
   "license": "MPL 2.0",
   "version": "0.1"
 }
