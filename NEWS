@@ -1,0 +1,6 @@
+0.2
+-Bug #1 - don't use innerHTML
+-Fix an iteration bug in the DOM elements
+
+0.1
+-Initial release with Vimeo and Youtube support.
