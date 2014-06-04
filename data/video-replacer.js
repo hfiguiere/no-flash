@@ -74,7 +74,7 @@ function replaceVimeo(container, a) {
   }
 
   if (a.videoid === undefined) {
-    console.error("Couldn't match video ID in URL", a.src);
+    console.error("Couldn't match VIMEO video ID in URL", a.src);
     return ;
   }
 
@@ -97,7 +97,7 @@ function replaceYT(container, a) {
   }
 
   if (a.videoid === undefined) {
-    console.error("Couldn't match video ID in URL", a.src);
+    console.error("Couldn't match YT video ID in URL", a.src);
     return ;
   }
 
@@ -124,10 +124,10 @@ for (var i in embeds) {
     if (analyzed.type == "youtube") {
       replaceYT(embeds[i], analyzed);
     }
-    else if (analyzed.type = "vimeo") {
+    else if (analyzed.type == "vimeo") {
       replaceVimeo(embeds[i], analyzed);
     }
-    console.log("Found object of type", analyzed.type);
+    console.log("Found object", embeds[i].localName, "of type", analyzed.type);
   }
   catch(e) {
     console.error("Exception:", e.message, e.stack);
