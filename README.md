@@ -14,6 +14,10 @@ Will replace know Flash embed with HTML5 equivalent.
 * Vimeo: you need H264 support for that since Vimeo has always hated royaltie free codec like WebM
 a preferred to tell Firefox users to install Safari, even on Linux.
 
+== To install ==
+
+Visit https://addons.mozilla.org/en-US/firefox/addon/no-flash/
+
 == To build ==
 
 Install the Add-on SDK https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Installation
