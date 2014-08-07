@@ -1,14 +1,14 @@
+//
+// This is injected in the content.
+// Author: Hubert Figuiere
+//
+
 
 function analyzeObject(element) {
-  if (element === null) {
-    console.error("Null object to analyze");
-    return {
-      type: "notflash"
-    };
-  }
-  var param = element.firstChild;
+  var param = element ? element.firstChild : null;
   if (param === null) {
-    console.error("No child to analyze in", element.localName);
+    console.error("No child or element to analyze in",
+                  element ? element.localName : '(null)');
     return {
       type: "notflash"
     };
@@ -62,6 +62,7 @@ function analyzeObject(element) {
             processor: replaceVimeo
           };
         }
+
       }
     }
     param = param.nextSibling;
