@@ -3,4 +3,12 @@ Q: Isn't that what Flashblock is doing?
 A: No. Flashblock blocks Flash. No Flash tries to replace Flash video playback
 with HTML5.
 
+Q: What about that Flash emulator in Javascript?
 
+A: Out of scope. Sorry. I am not emulating Flash. I am just fixing video playback
+to use modern technology.
+
+Q: What about Shumway?
+
+A: I believe that most videoplaying shouldn't be emulated by Shumway but rather
+switch to HTML5.
