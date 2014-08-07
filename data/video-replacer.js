@@ -38,14 +38,14 @@ function analyzeObject(element) {
         console.log("matching url", url);
 
         // YOUTUBE
-        var matches = url.match('^https?:\/\/(www\.)?youtube\.com/v/([A-Za-z0-9_\-]{11})');
+        var matches = url.match('^https?:\/\/(?:www\.)?youtube\.(?:googleapis\.)?com/v/([A-Za-z0-9_\-]{11})');
         if (matches) {
           return {
             type: "youtube",
             src: url,
             width: width,
             height: height,
-            videoid: matches[2],
+            videoid: matches[1],
             processor: replaceYT
           };
         }
