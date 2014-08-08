@@ -116,6 +116,8 @@ function replaceYT(container, a) {
   replacement.setAttribute('frameborder', '0');
 
   replaceObjectTag(container, replacement);
+
+//  console.log("Replacing with ", replacement.outerHTML);
 }
 
 function replaceObjectTag(obj, replacement) {
@@ -123,26 +125,27 @@ function replaceObjectTag(obj, replacement) {
   obj.parentNode.removeChild(obj);
 }
 
-var elements = document.getElementsByTagName("object")
+self.port.on("noFlash", function() {
+  var elements = document.getElementsByTagName("object")
 
-var embeds = [];
-for (var i = 0; i < elements.length; i++) {
-  embeds.push(elements.item(i));
-}
+  var embeds = [];
+  for (var i = 0; i < elements.length; i++) {
+    embeds.push(elements.item(i));
+  }
 
-for (var i in embeds) {
-  try {
-    console.log('processing', i);
-    var analyzed = analyzeObject(embeds[i]);
+  for (var i in embeds) {
+    try {
+      console.log('processing', i);
+      var analyzed = analyzeObject(embeds[i]);
 
-    if (typeof analyzed.processor === 'function') {
-      analyzed.processor(embeds[i], analyzed);
-    } else {
-      console.log("Found unprocessable object", embeds[i].localName, "of type", analyzed.type);
+      if (typeof analyzed.processor === 'function') {
+        analyzed.processor(embeds[i], analyzed);
+      } else {
+        console.log("Found unprocessable object", embeds[i].localName, "of type", analyzed.type);
+      }
+    }
+    catch (e) {
+      console.error("Exception:", e.message, e.stack);
     }
   }
-  catch (e) {
-    console.error("Exception:", e.message, e.stack);
-  }
-}
-
+});
