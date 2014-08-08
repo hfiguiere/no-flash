@@ -35,7 +35,7 @@ function analyzeObject(element) {
       if (param.hasAttribute('src')) {
         var url = param.getAttribute('src');
 
-        console.log("matching url", url);
+//DEBUG        console.log("matching url", url);
 
         // YOUTUBE
         var matches = url.match('^https?:\/\/(?:www\.)?youtube\.(?:googleapis\.)?com/v/([A-Za-z0-9_\-]{11})');
