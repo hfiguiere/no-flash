@@ -1,3 +1,7 @@
+0.4
+-Bug #19 - Attach to all windows, including new.
+-Bug #7 - support private browsing. Don't leak URL in messages (DEBUG)
+
 0.3
 -Bug #11 - Use PluginBindingAttached event to catch the embeds.
 -Bug #18 - Deal with dynamically loaded objects.

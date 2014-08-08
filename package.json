@@ -5,6 +5,6 @@
   "description": "An addon that replace Flash video players by HTML5.",
   "author": "Hubert Figuière <hub@figuiere.net>",
   "license": "MPL 2.0",
-  "version": "0.3",
+  "version": "0.4",
   "permissions": {"private-browsing": true}
 }
