@@ -6,12 +6,15 @@ Because there are two things I hate the most on the "web":
 
 ## What it does
 
-Will replace know Flash embed with HTML5 equivalent.
+Will replace known Flash embed with HTML5 equivalent.
 
 * Youtube
 
 * Vimeo: you need H264 support for that since Vimeo has always hated royaltie free codec like WebM
 a preferred to tell Firefox users to install Safari, even on Linux.
+
+The original Mozilla bug:
+https://bugzilla.mozilla.org/show_bug.cgi?id=769117
 
 ## To install
 
