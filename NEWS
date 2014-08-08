@@ -1,3 +1,8 @@
+0.3
+-Bug #11 - Use PluginBindingAttached event to catch the embeds.
+-Bug #18 - Deal with dynamically loaded objects.
+-Bug #13 - Support alternative Googleapis URL for youtube.
+
 0.2
 -Bug #1 - don't use innerHTML
 -Fix an iteration bug in the DOM elements
