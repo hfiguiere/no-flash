@@ -38,7 +38,7 @@ function analyzeObject(element) {
 //DEBUG        console.log("matching url", url);
 
         // YOUTUBE
-        var matches = url.match('^https?:\/\/(?:www\.)?youtube\.(?:googleapis\.)?com/v/([A-Za-z0-9_\-]{11})');
+        var matches = url.match('^(?:https?:)?\/\/(?:www\.)?youtube\.(?:googleapis\.)?com/v/([A-Za-z0-9_\-]{11})');
         if (matches) {
           return {
             type: "youtube",
@@ -51,7 +51,7 @@ function analyzeObject(element) {
         }
 
         // VIMEO
-        matches = url.match('^https?:\/\/(www\.)?vimeo.com/moogaloop\.swf\?.*clip_id=([0-9]*)');
+        matches = url.match('^(?:https?:)?\/\/(www\.)?vimeo.com/moogaloop\.swf\?.*clip_id=([0-9]*)');
         if (matches) {
           return {
             type: "vimeo",
