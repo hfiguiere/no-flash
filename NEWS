@@ -1,3 +1,7 @@
+0.4.1
+-URL scheme is optional in match: some embed were skipped.
+-Look for the <embed> instead of <object>
+
 0.4
 -Bug #19 - Attach to all windows, including new.
 -Bug #7 - support private browsing. Don't leak URL in messages (DEBUG)
