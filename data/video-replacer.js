@@ -5,8 +5,7 @@
 
 
 function analyzeObject(element) {
-  var param = element ? element.firstChild : null;
-  if (param === null) {
+  if (element.localName != 'embed') {
     console.error("No child or element to analyze in",
                   element ? element.localName : '(null)');
     return {
@@ -17,55 +16,46 @@ function analyzeObject(element) {
   width = element.getAttribute("width");
   height = element.getAttribute("height");
 
-  while (param) {
-    if (param.localName == 'embed') {
+  var embed_type = element.getAttribute("type")
+  if (embed_type != "application/x-shockwave-flash") {
+    console.log("Not flash, but", embed_type);
+    return {
+      type: "notflash"
+    };
+  }
 
-      var embed_type = param.getAttribute("type")
-      if (embed_type != "application/x-shockwave-flash") {
-        console.log("Not flash, but", embed_type);
-        return {
-          type: "notflash"
-        };
-      }
+//      allowfullscreen = element.getAttribute("allowfullscreen");
 
-      width = param.hasAttribute("width") ? param.getAttribute("width") : width;
-      height = param.hasAttribute("height") ? param.getAttribute("height") : height;
-//      allowfullscreen = param.getAttribute("allowfullscreen");
-
-      if (param.hasAttribute('src')) {
-        var url = param.getAttribute('src');
+  if (element.hasAttribute('src')) {
+    var url = element.getAttribute('src');
 
 //DEBUG        console.log("matching url", url);
 
-        // YOUTUBE
-        var matches = url.match('^(?:https?:)?\/\/(?:www\.)?youtube\.(?:googleapis\.)?com/v/([A-Za-z0-9_\-]{11})');
-        if (matches) {
-          return {
-            type: "youtube",
-            src: url,
-            width: width,
-            height: height,
-            videoid: matches[1],
-            processor: replaceYT
-          };
-        }
-
-        // VIMEO
-        matches = url.match('^(?:https?:)?\/\/(www\.)?vimeo.com/moogaloop\.swf\?.*clip_id=([0-9]*)');
-        if (matches) {
-          return {
-            type: "vimeo",
-            src: url,
-            width: width,
-            height: height,
-            videoid: matches[2],
-            processor: replaceVimeo
-          };
-        }
-
-      }
+    // YOUTUBE
+    var matches = url.match('^(?:https?:)?\/\/(?:www\.)?youtube\.(?:googleapis\.)?com/v/([A-Za-z0-9_\-]{11})');
+    if (matches) {
+      return {
+        type: "youtube",
+        src: url,
+        width: width,
+        height: height,
+        videoid: matches[1],
+        processor: replaceYT
+      };
     }
-    param = param.nextSibling;
+
+    // VIMEO
+    matches = url.match('^(?:https?:)?\/\/(www\.)?vimeo.com/moogaloop\.swf\?.*clip_id=([0-9]*)');
+    if (matches) {
+      return {
+        type: "vimeo",
+        src: url,
+        width: width,
+        height: height,
+        videoid: matches[2],
+        processor: replaceVimeo
+      };
+    }
   }
 }
 
@@ -126,7 +116,7 @@ function replaceObjectTag(obj, replacement) {
 }
 
 self.port.on("noFlash", function() {
-  var elements = document.getElementsByTagName("object")
+  var elements = document.getElementsByTagName("embed")
 
   var embeds = [];
   for (var i = 0; i < elements.length; i++) {
