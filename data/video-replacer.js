@@ -18,7 +18,7 @@ function analyzeObject(element) {
 
   var embed_type = element.getAttribute("type")
   if (embed_type != "application/x-shockwave-flash") {
-    console.log("Not flash, but", embed_type);
+//DEBUG    console.log("Not flash, but", embed_type);
     return {
       type: "notflash"
     };
@@ -107,7 +107,7 @@ function replaceYT(container, a) {
 
   replaceObjectTag(container, replacement);
 
-//  console.log("Replacing with ", replacement.outerHTML);
+//DEBUG  console.log("Replacing with ", replacement.outerHTML);
 }
 
 function replaceObjectTag(obj, replacement) {
@@ -125,13 +125,13 @@ self.port.on("noFlash", function() {
 
   for (var i in embeds) {
     try {
-      console.log('processing', i);
+//DEBUG      console.log('processing', i);
       var analyzed = analyzeObject(embeds[i]);
 
       if (typeof analyzed.processor === 'function') {
         analyzed.processor(embeds[i], analyzed);
       } else {
-        console.log("Found unprocessable object", embeds[i].localName, "of type", analyzed.type);
+//DEBUG        console.log("Found unprocessable object", embeds[i].localName, "of type", analyzed.type);
       }
     }
     catch (e) {
