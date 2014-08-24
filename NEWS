@@ -1,3 +1,8 @@
+0.4.2
+-Bug #23 - Remove excessive logging. Remove for each.
+-Bug #22 - Rebuilt with SDK 1.17
+-Bug #21 - Update documentation.
+
 0.4.1
 -URL scheme is optional in match: some embed were skipped.
 -Look for the <embed> instead of <object>
