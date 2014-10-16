@@ -3,18 +3,19 @@ A Firefox add-on to get rid of Flash video players.
 Because there are two things I hate the most on the "web":
 * Flash
 * EME
+Let's tackle Flash.
 
 If you have the Flash plugin enabled, then this addon is of no use for
 you.
 
 ## What it does
 
-Will replace known Flash embed with HTML5 equivalent.
+Will replace known Flash embed on third partu website with the HTML5 equivalent.
 
 * Youtube
 
 * Vimeo: you need H264 support for that since Vimeo has always hated
-royaltie free codec like WebM a preferred to tell Firefox users to
+royalty free codec like WebM and preferred to tell Firefox users to
 install Safari, even on Linux.
 
 The original Mozilla bug:
