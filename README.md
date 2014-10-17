@@ -10,7 +10,7 @@ you.
 
 ## What it does
 
-Will replace known Flash embed on third partu website with the HTML5 equivalent.
+Will replace known Flash embed on third party website with the HTML5 equivalent.
 
 * Youtube
 
