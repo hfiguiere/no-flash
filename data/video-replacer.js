@@ -56,8 +56,50 @@ function analyzeObject(element) {
         processor: replaceVimeo
       };
     }
+
+    // DAILYMOTION
+    matches = url.match('^(?:https?:)?\/\/(?:www\.)?dailymotion.com/swf/(.*)');
+    if (matches) {
+      return {
+        type: "dailymotion",
+        src: url,
+        width: width,
+        height: height,
+        videoid: matches[1],
+        processor: replaceDailymotion
+      };
+    }
+
+    return {
+      type: "unsupported"
+    };
   }
 }
+
+// replace the Dialymotion embed by its iframe
+function replaceDailymotion(container, a) {
+  if (a.type != "dailymotion") {
+    console.error("Wrong type, got", a.type);
+    return;
+  }
+
+  if (a.videoid === undefined) {
+    console.error("Couldn't match Dailymotion video ID in URL", a.src);
+    return ;
+  }
+
+  var replacement = document.createElement("iframe");
+  replacement.setAttribute('src', 'https://www.dailymotion.com/embed/video/' + a.videoid);
+  replacement.setAttribute('width', a.width);
+  replacement.setAttribute('height', a.height);
+  replacement.setAttribute('frameborder', '0');
+//  replacement.setAttribute('webkitallowfullscreen'); // not needed
+//  replacement.setAttribute('mozallowfullscreen'); // deprecated
+  replacement.setAttribute('allowfullscreen', '');
+
+  replaceObjectTag(container, replacement);
+}
+
 
 // replace the vimeo embed by its iframe
 function replaceVimeo(container, a) {
@@ -130,6 +172,8 @@ self.port.on("noFlash", function() {
 
       if (typeof analyzed.processor === 'function') {
         analyzed.processor(embeds[i], analyzed);
+      } else if (analyzed.type === 'unsupported') {
+        //XXX do something.
       } else {
 //DEBUG        console.log("Found unprocessable object", embeds[i].localName, "of type", analyzed.type);
       }

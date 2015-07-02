@@ -18,6 +18,8 @@ Will replace known Flash embed on third party website with the HTML5 equivalent.
 royalty free codec like WebM and preferred to tell Firefox users to
 install Safari, even on Linux.
 
+* Dailymotion
+
 The original Mozilla bug:
 https://bugzilla.mozilla.org/show_bug.cgi?id=769117
 

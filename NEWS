@@ -1,6 +1,7 @@
 0.5.0
 -Port addon to use jpm instead of cfx.
 -Bug #33 - Fix plugin on recent browsers.
+-Bug #29 - Support Dailymotion.
 
 0.4.2
 -Bug #23 - Remove excessive logging. Remove for each.
