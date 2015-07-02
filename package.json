@@ -1,10 +1,15 @@
 {
   "name": "no-flash",
   "title": "No Flash",
-  "id": "jid1-cplLTTY501TB2Q",
+  "id": "jid1-cplLTTY501TB2Q@jetpack",
   "description": "An addon that replace embedded YouTube and Vimeo Flash video players on third-party websites by HTML5.",
   "author": "Hubert Figuière <hub@figuiere.net>",
-  "license": "MPL 2.0",
-  "version": "0.4.2",
-  "permissions": {"private-browsing": true}
+  "license": "MPL-2.0",
+  "version": "0.5.0",
+  "main": "lib/main",
+  "permissions": 
+  {
+    "private-browsing": true,
+    "multiprocess": false
+  }
 }

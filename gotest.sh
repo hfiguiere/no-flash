@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cfx xpi ; wget --post-file=no-flash.xpi http://localhost:8888/
+jpm post --post-url http://localhost:8888/

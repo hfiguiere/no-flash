@@ -1,3 +1,6 @@
+0.5.0
+-Port addon to use jpm instead of cfx.
+
 0.4.2
 -Bug #23 - Remove excessive logging. Remove for each.
 -Bug #22 - Rebuilt with SDK 1.17

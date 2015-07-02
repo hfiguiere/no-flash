@@ -31,7 +31,7 @@ Visit https://addons.mozilla.org/en-US/firefox/addon/no-flash/
 
 Install the Add-on SDK https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Installation
 
-    cfx xpi
+    jpm xpi
 
 Then drop the no-flash.xpi file into you browser.
 
