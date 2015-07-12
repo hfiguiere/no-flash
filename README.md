@@ -1,8 +1,10 @@
 A Firefox add-on to get rid of Flash video players.
 
 Because there are two things I hate the most on the "web":
+
 * Flash
 * EME
+
 Let's tackle Flash.
 
 If you have the Flash plugin enabled, then this addon is of no use for
