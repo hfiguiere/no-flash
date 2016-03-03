@@ -38,7 +38,7 @@ function matchVimeo(url, width, height) {
 
 function matchDailymotion(url, width, height) {
   // DAILYMOTION
-  matches = url.match('^(?:https?:)?\/\/(?:www\.)?dailymotion.com/swf/(.*)');
+  matches = url.match('^(?:https?:)?\/\/(?:www\.)?dailymotion.com/swf/(?:video/)?(.*)');
   if (matches) {
     return {
       type: "dailymotion",
