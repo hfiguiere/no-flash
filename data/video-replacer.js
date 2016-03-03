@@ -4,6 +4,54 @@
 //
 
 
+function matchYT(url, width, height) {
+  // YOUTUBE
+  var matches = url.match('^(?:https?:)?\/\/(?:www\.)?youtube(?:(?:-nocookie)|(?:\.googleapis))?\.com/v/([A-Za-z0-9_\-]{11})');
+  if (matches) {
+    return {
+      type: "youtube",
+      src: url,
+      width: width,
+      height: height,
+      videoid: matches[1],
+      processor: replaceYT
+    };
+  }
+  return null;
+}
+
+function matchVimeo(url, width, height) {
+  // VIMEO
+  var matches = url.match('^(?:https?:)?\/\/(?:www\.)?vimeo.com/moogaloop\.swf\?.*clip_id=([0-9]*)');
+  if (matches) {
+    return {
+      type: "vimeo",
+      src: url,
+      width: width,
+      height: height,
+      videoid: matches[1],
+      processor: replaceVimeo
+    };
+  }
+  return null;
+}
+
+function matchDailymotion(url, width, height) {
+  // DAILYMOTION
+  matches = url.match('^(?:https?:)?\/\/(?:www\.)?dailymotion.com/swf/(.*)');
+  if (matches) {
+    return {
+      type: "dailymotion",
+      src: url,
+      width: width,
+      height: height,
+      videoid: matches[1],
+      processor: replaceDailymotion
+    };
+  }
+  return null;
+}
+
 function analyzeObject(element) {
   if (element.localName != 'embed') {
     console.error("No child or element to analyze in",
@@ -31,43 +79,19 @@ function analyzeObject(element) {
 
 //DEBUG        console.log("matching url", url);
 
-    // YOUTUBE
-    var matches = url.match('^(?:https?:)?\/\/(?:www\.)?youtube\.(?:googleapis\.)?com/v/([A-Za-z0-9_\-]{11})');
-    if (matches) {
-      return {
-        type: "youtube",
-        src: url,
-        width: width,
-        height: height,
-        videoid: matches[1],
-        processor: replaceYT
-      };
+    var match = matchYT(url, width, height);
+    if (match) {
+      return match;
     }
 
-    // VIMEO
-    matches = url.match('^(?:https?:)?\/\/(www\.)?vimeo.com/moogaloop\.swf\?.*clip_id=([0-9]*)');
-    if (matches) {
-      return {
-        type: "vimeo",
-        src: url,
-        width: width,
-        height: height,
-        videoid: matches[2],
-        processor: replaceVimeo
-      };
+    match = matchVimeo(url, width, height);
+    if (match) {
+      return match;
     }
 
-    // DAILYMOTION
-    matches = url.match('^(?:https?:)?\/\/(?:www\.)?dailymotion.com/swf/(.*)');
-    if (matches) {
-      return {
-        type: "dailymotion",
-        src: url,
-        width: width,
-        height: height,
-        videoid: matches[1],
-        processor: replaceDailymotion
-      };
+    match = matchDailymotion(url, width, height);
+    if (match) {
+      return match;
     }
 
     return {

@@ -1,3 +1,9 @@
+0.5.1
+-Fix broken add-on starting in Firefox 44.
+ https://blog.mozilla.org/addons/2015/10/14/breaking-changes-let-const-firefox-nightly-44/
+ https://bugzilla.mozilla.org/show_bug.cgi?id=1212968
+-Bug #44 - Fix a bug with youtube-nocookie embeds.
+
 0.5.0
 -Port addon to use jpm instead of cfx.
 -Bug #33 - Fix plugin on recent browsers.
