@@ -53,51 +53,76 @@ function matchDailymotion(url, width, height) {
 }
 
 function analyzeObject(element) {
-  if (element.localName != 'embed') {
+  var url;
+  switch (element.localName) {
+
+  case 'embed':
+    var width, height;
+    width = element.getAttribute("width");
+    height = element.getAttribute("height");
+
+    var embed_type = element.getAttribute("type")
+    if (embed_type != "application/x-shockwave-flash") {
+      return {
+        type: "notflash"
+      };
+    }
+    if (element.hasAttribute('src')) {
+      url = element.getAttribute('src');
+    }
+    break;
+
+  case 'object':
+    var width, height;
+    width = element.getAttribute("width");
+    height = element.getAttribute("height");
+    var embed_type = element.getAttribute("type")
+    if (embed_type != "application/x-shockwave-flash") {
+      return {
+        type: "notflash"
+      };
+    }
+    var param = element.querySelector('param[name="src"]');
+    if (param) {
+      url = param.getAttribute('value');
+    }
+    if (!url) {
+      return {
+        type: "notflash"
+      };
+    }
+    break;
+  default:
     console.error("No child or element to analyze in",
                   element ? element.localName : '(null)');
     return {
       type: "notflash"
     };
   }
-  var width, height;
-  width = element.getAttribute("width");
-  height = element.getAttribute("height");
 
-  var embed_type = element.getAttribute("type")
-  if (embed_type != "application/x-shockwave-flash") {
-//DEBUG    console.log("Not flash, but", embed_type);
-    return {
-      type: "notflash"
-    };
-  }
+  //      allowfullscreen = element.getAttribute("allowfullscreen");
 
-//      allowfullscreen = element.getAttribute("allowfullscreen");
-
-  if (element.hasAttribute('src')) {
-    var url = element.getAttribute('src');
 
 //DEBUG        console.log("matching url", url);
 
-    var match = matchYT(url, width, height);
-    if (match) {
-      return match;
-    }
-
-    match = matchVimeo(url, width, height);
-    if (match) {
-      return match;
-    }
-
-    match = matchDailymotion(url, width, height);
-    if (match) {
-      return match;
-    }
-
-    return {
-      type: "unsupported"
-    };
+  var match = matchYT(url, width, height);
+  if (match) {
+    return match;
   }
+
+  match = matchVimeo(url, width, height);
+  if (match) {
+    return match;
+  }
+
+  match = matchDailymotion(url, width, height);
+  if (match) {
+    return match;
+  }
+
+  return {
+    type: "unsupported"
+  };
 }
 
 // replace the Dialymotion embed by its iframe
@@ -177,13 +202,25 @@ function replaceYT(container, a) {
 }
 
 function replaceObjectTag(obj, replacement) {
+  var ancestor = null;
+  switch(obj.localName) {
+  case 'embed':
+    ancestor = obj.closest('object');
+    break;
+  case 'object':
+    ancestor = obj.closest('embed');
+    break;
+  default:
+    break;
+  }
+  if (ancestor) {
+    obj = ancestor;
+  }
   obj.parentNode.insertBefore(replacement, obj);
   obj.parentNode.removeChild(obj);
 }
 
-self.port.on("noFlash", function() {
-  var elements = document.getElementsByTagName("embed")
-
+function elementsProcessor(elements) {
   var embeds = [];
   for (var i = 0; i < elements.length; i++) {
     embeds.push(elements.item(i));
@@ -206,4 +243,11 @@ self.port.on("noFlash", function() {
       console.error("Exception:", e.message, e.stack);
     }
   }
+}
+self.port.on("noFlash", function() {
+  var elements = document.plugins;
+
+  elementsProcessor(elements);
+  elements = document.getElementsByTagName("object");
+  elementsProcessor(elements);
 });
