@@ -1,4 +1,4 @@
-Youtube old embed - SHOULD WORK
+* Youtube old embed - SHOULD WORK
 
 http://www.brothers-brick.com/2010/12/10/an-ancient-computer-replicated-in-lego/
 http://www.brothers-brick.com/2010/11/17/lego-3d-scanner-used-to-generate-3d-ldraw-parts/
@@ -6,29 +6,41 @@ http://petapixel.com/2009/12/30/stop-motion-digital-photography-on-the-silver-sc
 http://petapixel.com/2009/12/28/13-creative-light-painting-animations/
 
 http://www.newscenter.philips.com/main/standard/news/press/2015/20150402-Take-light-with-you-with-new-Philips-Hue-Go.wpd
+
+
+No longer a valid example (updated but the authors)
 http://www.people.com/article/chris-columbus-goonies-gremlins-update
 
-Youtube <object> - SHOULD WORK
+* Youtube <object> - SHOULD WORK
 
-http://www.ratp.fr/fr/ratp/r_61654/paris-visite/
+404 - http://www.ratp.fr/fr/ratp/r_61654/paris-visite/
 
-Flowplayer
+* Rewrite by Firefox:
+
+https://bugzilla.mozilla.org/show_bug.cgi?id=769117
+From Mozilla own QA https://wiki.mozilla.org/QA/Youtube_Embedded_Rewrite :
+
+One flash, one embed. Firefox perform the rewrite.
+https://www.ghacks.net/2007/03/02/one-of-the-greatest-line-rider-movies-ever/
+
+
+* Flowplayer
 
 http://www.clubvideoflash.com/_page/prod/2013/lego-marvel-super-heroes-fr.php
 
 
-Vimeo Moogaloop - SHOULD WORK
+* Vimeo Moogaloop - SHOULD WORK
 http://petapixel.com/2009/12/31/ten-years-of-life-through-polaroids/
 http://petapixel.com/2009/12/28/13-creative-light-painting-animations/
 
-Vimeo <object> - SHOULD WORK
+* Vimeo <object> - SHOULD WORK
 http://votd.tv/blog/25/ohh-bowie-r-i-p
 
 
-Dailymotion - SHOULD WORK
+* Dailymotion - SHOULD WORK
 
 http://www.lefigaro.fr/culture/2009/09/12/03004-20090912ARTFIG00514-willy-ronis-mort-d-un-geant-de-la-photographie-.php#
 
-Dailymotion <object> - SHOULD WORK
+* Dailymotion <object> - SHOULD WORK
 
 http://www.studio09.net/index.php?option=com_content&view=category&layout=blog&id=41&Itemid=43

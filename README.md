@@ -1,11 +1,17 @@
 A Firefox add-on to get rid of Flash video players.
 
+
 Because there are two things I hate the most on the "web":
 
 * Flash
 * EME
+* Chrome specific sites that claim to be the web.
 
 Let's tackle Flash.
+
+This feature has been reimplemented in Firefox 47 and Chrome 54.
+* https://bugzilla.mozilla.org/show_bug.cgi?id=769117
+* https://groups.google.com/a/chromium.org/forum/#!msg/chromium-dev/BW8g1iB0jLs/uddWuBroBAAJ
 
 If you have the Flash plugin enabled, then this addon is of no use for
 you.
