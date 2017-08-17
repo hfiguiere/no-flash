@@ -3,6 +3,11 @@ Q: Isn't that what Flashblock is doing?
 A: No. Flashblock blocks Flash. No Flash tries to replace Flash video
 playback with HTML5.
 
+Q: Isn't this done by Firefox now?
+
+A: Firefox deal with Youtube only. But this supports some less popular
+services too.
+
 Q: What about that Flash emulator in Javascript?
 
 A: Out of scope. Sorry. I am not emulating Flash. I am just fixing
@@ -13,7 +18,7 @@ Q: What about Shumway?
 A: I believe that most videoplaying shouldn't be emulated by Shumway
 but rather switch to HTML5.
 
-Q: I went to YouTube and didn't see a difference
+Q: I went to YouTube|Vimeo|Dailymotion and didn't see a difference
 
 A: That's because nothing should happen there. It doesn't fix
 YouTube. It doesn't make YouTube never use Flash, albeit YouTube is
