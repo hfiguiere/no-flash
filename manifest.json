@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "version": "0.6.0",
+  "description": "Rewrite Flash video embed to HTML5 when it can",
+  "name": "No Flash",
+  "homepage_url": "https://github.com/hfiguiere/no-flash",
+
+  "content_scripts": [
+    {
+      "matches": [ "http://*/*", "https://*/*" ],
+      "js": ["content/video-replacer.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "applications": {
+    "gecko": {
+      "id": "jid1-cplLTTY501TB2Q@jetpack",
+      "strict_min_version": "55.0"
+    }
+  }
+}

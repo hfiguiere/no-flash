@@ -9,7 +9,7 @@ function matchYT(url, width, height) {
   var matches = url.match('^(?:https?:)?\/\/(?:www\.)?youtube(?:(?:-nocookie)|(?:\.googleapis))?\.com/v/([A-Za-z0-9_\-]{11})');
   if (matches) {
     return {
-      type: "youtube",
+      type: 'youtube',
       src: url,
       width: width,
       height: height,
@@ -25,7 +25,7 @@ function matchVimeo(url, width, height) {
   var matches = url.match('^(?:https?:)?\/\/(?:www\.)?vimeo.com/moogaloop\.swf\?.*clip_id=([0-9]*)');
   if (matches) {
     return {
-      type: "vimeo",
+      type: 'vimeo',
       src: url,
       width: width,
       height: height,
@@ -41,7 +41,7 @@ function matchDailymotion(url, width, height) {
   matches = url.match('^(?:https?:)?\/\/(?:www\.)?dailymotion.com/swf/(?:video/)?(.*)');
   if (matches) {
     return {
-      type: "dailymotion",
+      type: 'dailymotion',
       src: url,
       width: width,
       height: height,
@@ -53,19 +53,26 @@ function matchDailymotion(url, width, height) {
 }
 
 function analyzeObject(element) {
-  var url;
+  let url;
+  let width, height;
+
+  width = element.getAttribute('width');
+  height = element.getAttribute('height');
+
+  let embed_type = element.getAttribute('type')
+  if (embed_type != 'application/x-shockwave-flash') {
+    return {
+      type: "notflash"
+    };
+  }
+
   switch (element.localName) {
 
   case 'embed':
-    var width, height;
-    width = element.getAttribute("width");
-    height = element.getAttribute("height");
-
-    var embed_type = element.getAttribute("type")
-    if (embed_type != "application/x-shockwave-flash") {
-      return {
-        type: "notflash"
-      };
+    if (!width || !height) {
+      let parent = element.closest('object');
+      width = parent.getAttribute('width');
+      height = parent.getAttribute('height');
     }
     if (element.hasAttribute('src')) {
       url = element.getAttribute('src');
@@ -73,16 +80,7 @@ function analyzeObject(element) {
     break;
 
   case 'object':
-    var width, height;
-    width = element.getAttribute("width");
-    height = element.getAttribute("height");
-    var embed_type = element.getAttribute("type")
-    if (embed_type != "application/x-shockwave-flash") {
-      return {
-        type: "notflash"
-      };
-    }
-    var param = element.querySelector('param[name="src"]');
+    let param = element.querySelector('param[name="src"]');
     if (param) {
       url = param.getAttribute('value');
     }
@@ -93,8 +91,8 @@ function analyzeObject(element) {
     }
     break;
   default:
-    console.error("No child or element to analyze in",
-                  element ? element.localName : '(null)');
+    console.error('No child or element to analyze in' +
+                  `${element ? element.localName : '(null)'}`);
     return {
       type: "notflash"
     };
@@ -102,10 +100,7 @@ function analyzeObject(element) {
 
   //      allowfullscreen = element.getAttribute("allowfullscreen");
 
-
-//DEBUG        console.log("matching url", url);
-
-  var match = matchYT(url, width, height);
+  let match = matchYT(url, width, height);
   if (match) {
     return match;
   }
@@ -121,23 +116,23 @@ function analyzeObject(element) {
   }
 
   return {
-    type: "unsupported"
+    type: 'unsupported'
   };
 }
 
-// replace the Dialymotion embed by its iframe
+// replace the Dailymotion embed by its iframe
 function replaceDailymotion(container, a) {
-  if (a.type != "dailymotion") {
-    console.error("Wrong type, got", a.type);
+  if (a.type != 'dailymotion') {
+    console.error(`Wrong type, got ${a.type}`);
     return;
   }
 
   if (a.videoid === undefined) {
-    console.error("Couldn't match Dailymotion video ID in URL", a.src);
+    console.error(`Couldn't match Dailymotion video ID in URL ${a.src}`);
     return ;
   }
 
-  var replacement = document.createElement("iframe");
+  let replacement = document.createElement('iframe');
   replacement.setAttribute('src', 'https://www.dailymotion.com/embed/video/' + a.videoid);
   replacement.setAttribute('width', a.width);
   replacement.setAttribute('height', a.height);
@@ -152,8 +147,8 @@ function replaceDailymotion(container, a) {
 
 // replace the vimeo embed by its iframe
 function replaceVimeo(container, a) {
-  if (a.type != "vimeo") {
-    console.error("Wrong type, got", a.type);
+  if (a.type != 'vimeo') {
+    console.error(`Wrong type, got ${a.type}`);
     return;
   }
 
@@ -162,7 +157,7 @@ function replaceVimeo(container, a) {
     return ;
   }
 
-  var replacement = document.createElement("iframe");
+  let replacement = document.createElement('iframe');
   replacement.setAttribute('src', 'https://player.vimeo.com/video/' + a.videoid);
   replacement.setAttribute('width', a.width);
   replacement.setAttribute('height', a.height);
@@ -177,13 +172,13 @@ function replaceVimeo(container, a) {
 
 // replace the youtube embed by its iframe
 function replaceYT(container, a) {
-  if (a.type != "youtube") {
-    console.error("Wrong type, got", a.type);
+  if (a.type != 'youtube') {
+    console.error(`Wrong type, got ${a.type}`);
     return;
   }
 
   if (a.videoid === undefined) {
-    console.error("Couldn't match YT video ID in URL", a.src);
+    console.error(`Couldn't match YT video ID in URL ${a.src}`);
     return ;
   }
 
@@ -197,8 +192,6 @@ function replaceYT(container, a) {
   replacement.setAttribute('frameborder', '0');
 
   replaceObjectTag(container, replacement);
-
-//DEBUG  console.log("Replacing with ", replacement.outerHTML);
 }
 
 function replaceObjectTag(obj, replacement) {
@@ -221,22 +214,20 @@ function replaceObjectTag(obj, replacement) {
 }
 
 function elementsProcessor(elements) {
-  var embeds = [];
-  for (var i = 0; i < elements.length; i++) {
-    embeds.push(elements.item(i));
+  let embeds = [];
+  for (let element of elements) {
+    embeds.push(element);
   }
 
-  for (var i in embeds) {
+  for (let embed of embeds) {
     try {
-//DEBUG      console.log('processing', i);
-      var analyzed = analyzeObject(embeds[i]);
+      let analyzed = analyzeObject(embed);
 
       if (typeof analyzed.processor === 'function') {
-        analyzed.processor(embeds[i], analyzed);
+        analyzed.processor(embed, analyzed);
       } else if (analyzed.type === 'unsupported') {
         //XXX do something.
       } else {
-//DEBUG        console.log("Found unprocessable object", embeds[i].localName, "of type", analyzed.type);
       }
     }
     catch (e) {
@@ -244,10 +235,8 @@ function elementsProcessor(elements) {
     }
   }
 }
-self.port.on("noFlash", function() {
-  var elements = document.plugins;
 
-  elementsProcessor(elements);
-  elements = document.getElementsByTagName("object");
-  elementsProcessor(elements);
-});
+let elements = document.getElementsByTagName("embed");
+elementsProcessor(elements);
+elements = document.getElementsByTagName("object");
+elementsProcessor(elements);

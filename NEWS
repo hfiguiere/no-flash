@@ -1,7 +1,12 @@
+0.6.0
+-Port to WebExtension
+
 0.5.2
--Bug #37 - Now work on embed that is only <object>. So should work in more places now.
--Make sure to remove the containing <embed> or <object> that may wrapping things.
--Fix Dailymotion match to include the optionnal '/video/' in the URL.
+-Bug #37 - Now work on embed that is only <object>. So should work in
+ more places now.
+-Make sure to remove the containing <embed> or <object> that may
+ wrapping things.
+-Fix Dailymotion match to include the optional '/video/' in the URL.
 
 0.5.1
 -Fix broken add-on starting in Firefox 44.

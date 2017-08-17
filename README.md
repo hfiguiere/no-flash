@@ -1,5 +1,7 @@
-A Firefox add-on to get rid of Flash video players.
+A browser add-on to replace Flash video players by their HTML5 counterpart.
 
+Originally developed for Firefox, now that it is a WebExtension, it works
+in Google Chrome as well.
 
 Because there are two things I hate the most on the "web":
 
@@ -21,11 +23,7 @@ you.
 Will replace known Flash embed on third party website with the HTML5 equivalent.
 
 * Youtube
-
-* Vimeo: you need H264 support for that since Vimeo has always hated
-royalty free codec like WebM and preferred to tell Firefox users to
-install Safari, even on Linux.
-
+* Vimeo
 * Dailymotion
 
 The original Mozilla bug:
@@ -39,11 +37,7 @@ Visit https://addons.mozilla.org/en-US/firefox/addon/no-flash/
 
 ## To build
 
-Install the Add-on SDK https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Installation
-
-    jpm xpi
-
-Then drop the no-flash.xpi file into you browser.
+This is a regular WebExtension. Just load it into the browser.
 
 ## Status
 
